@@ -12,5 +12,3 @@
 
 [GitHub](https://github.com/sthpratik/synapse)
 [Get Started](#getting-started)
-
-<!-- background color -->
