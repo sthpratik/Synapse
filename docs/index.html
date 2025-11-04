@@ -13,7 +13,8 @@
   <script>
     window.$docsify = {
       name: 'Synapse',
-      repo: 'https://github.com/sthpratik/synapse',
+      repo: 'https://github.com/sthpratik/Synapse',
+      basePath: '/Synapse/',
       loadSidebar: true,
       subMaxLevel: 2,
       search: 'auto',
@@ -21,7 +22,7 @@
       plugins: [
         function(hook, vm) {
           hook.beforeEach(function (html) {
-            var url = 'https://github.com/sthpratik/synapse/blob/main/docs/' + vm.route.file
+            var url = 'https://github.com/sthpratik/Synapse/blob/main/docs/' + vm.route.file
             var editHtml = '[:memo: Edit Document](' + url + ')\n'
             return editHtml + html
           })
