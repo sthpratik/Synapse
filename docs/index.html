@@ -14,7 +14,7 @@
     window.$docsify = {
       name: 'Synapse',
       repo: 'https://github.com/sthpratik/Synapse',
-      basePath: '/Synapse/',
+      basePath: location.hostname === 'sthpratik.github.io' ? '/Synapse/' : '/',
       loadSidebar: true,
       subMaxLevel: 2,
       search: 'auto',
