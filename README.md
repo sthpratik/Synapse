@@ -241,7 +241,7 @@ npm run test -- --coverage
 
 ## 📚 Documentation
 
-Full documentation is available at: [Synapse Docs](https://your-username.github.io/synapse)
+Full documentation is available at: [Synapse Docs](https://sthpratik.github.io/synapse)
 
 Or serve locally:
 
@@ -269,6 +269,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🐛 Issues & Support
 
-- Report bugs: [GitHub Issues](https://github.com/your-username/synapse/issues)
-- Feature requests: [GitHub Discussions](https://github.com/your-username/synapse/discussions)
-- Documentation: [Synapse Docs](https://your-username.github.io/synapse)
+- Report bugs: [GitHub Issues](https://github.com/sthpratik/synapse/issues)
+- Feature requests: [GitHub Discussions](https://github.com/sthpratik/synapse/discussions)
+- Documentation: [Synapse Docs](https://sthpratik.github.io/synapse)
