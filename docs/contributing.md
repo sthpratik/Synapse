@@ -4,7 +4,7 @@
 
 1. **Clone the repository:**
 ```bash
-git clone https://github.com/sthpratik/Synapse.git
+git clone https://github.com/sthpratik/synapse.git
 cd Synapse
 ```
 

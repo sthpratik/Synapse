@@ -45,12 +45,12 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sthpratik/synapse.git"
+    "url": "https://github.com/sthpratik/Synapse.git"
   },
   "bugs": {
-    "url": "https://github.com/sthpratik/synapse/issues"
+    "url": "https://github.com/sthpratik/Synapse/issues"
   },
-  "homepage": "https://github.com/sthpratik/synapse#readme",
+  "homepage": "https://github.com/sthpratik/Synapse#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
