@@ -14,11 +14,10 @@
     window.$docsify = {
       name: 'Synapse',
       repo: 'https://github.com/sthpratik/synapse',
-      basePath: location.hostname === 'sthpratik.github.io' ? '/synapse/docs/' : '/docs/',
-      loadSidebar: '_sidebar.md',
-      subMaxLevel: 2,
+      coverpage: true,
+      loadNavbar: true,
+      // subMaxLevel: 2,
       search: 'auto',
-      coverpage: '_coverpage.md',
       plugins: [
         function(hook, vm) {
           hook.beforeEach(function (html) {
