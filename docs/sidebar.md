@@ -3,6 +3,7 @@
 * [Getting Started](getting-started.md)
 * [Configuration Schema](config-schema.md)
 * [Parameter Types](parameter-types.md)
+* [K6 Options](k6-options.md)
 * [Examples](examples.md)
 * [MCP Integration](mcp-integration.md)
 * [Architecture](architecture.md)
