@@ -4,6 +4,7 @@
 * [Configuration Schema](config-schema.md)
 * [Parameter Types](parameter-types.md)
 * [Examples](examples.md)
+* [MCP Integration](mcp-integration.md)
 * [Architecture](architecture.md)
 * [CLI Reference](cli-reference.md)
 * [API Reference](api-reference.md)

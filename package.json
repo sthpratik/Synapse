@@ -22,6 +22,9 @@
     "docs:serve": "docsify serve docs",
     "docs:init": "docsify init docs",
     "docs:version": "node scripts/update-docs-version.js",
+    "mcp:build": "cd mcp-server && npm install && npm run build",
+    "mcp:dev": "cd mcp-server && npm run dev",
+    "mcp:start": "cd mcp-server && npm start",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run build && npm run docs:version",
     "clean": "rm -rf dist"

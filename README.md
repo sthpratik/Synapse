@@ -14,6 +14,7 @@ Synapse is a powerful command-line tool that generates K6 load testing scripts f
 - **Smart Configuration** - Automatic mode detection based on config
 - **Performance Metrics** - Comprehensive load testing results
 - **CLI Interface** - Easy-to-use command-line interface
+- **MCP Integration** - Natural language load testing through LLM conversations
 
 ## 📦 Installation
 
