@@ -1,7 +1,7 @@
 {
-  "name": "synapse",
+  "name": "synapse-load-tester",
   "version": "1.0.0",
-  "description": "Dynamic load testing tool using K6 with YAML configuration",
+  "description": "Dynamic load testing tool with intelligent version comparison using K6, pixelmatch, and Sharp",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "bin": {
@@ -38,7 +38,15 @@
     "testing",
     "api-testing",
     "stress-testing",
-    "benchmark"
+    "benchmark",
+    "image-comparison",
+    "version-comparison",
+    "pixelmatch",
+    "sharp",
+    "webp",
+    "jpeg",
+    "png",
+    "gif"
   ],
   "author": {
     "name": "Manish Shrestha",
