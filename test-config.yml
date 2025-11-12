@@ -1,0 +1,51 @@
+name: "Image Resizer Load Test"
+baseUrl: "https://ais-dev.cnvr.in/imageresizer/"
+execution:
+  mode: "construct"
+  concurrent: 10
+  iterations: 100
+comparison:
+  enabled: true
+  type: "image"
+  baseUrl2: "https://ais-stage.cnvr.in/imageresizer/"
+  threshold: 0.1
+  timeout: 30000
+  reportFormat: "csv"  
+parameters:
+  - name: "img"
+    type: "static"
+    value: "https://jarvis-dev.cnvr.in/generated-content/imagen-3_0-generate-002/2025-11-07/imagen-1762538161670-a0e93ab5.webp"
+  - name: "w"
+    type: "integer"
+    min: 100
+    max: 1000
+  - name: "h"
+    type: "integer"
+    min: 100
+    max: 1080
+  - name: "scale"
+    type: "array"
+    values: ["inside", "outside"]
+  - name: "tint"
+    type: "array"
+    values: ["FF0000", "00FF00", "0000FF", "FFFF00", "FF00FF"]
+  - name: "quality"
+    type: "integer"
+    min: 60
+    max: 100
+  - name: "sharpness"
+    type: "array"
+    values: [0.5, 0.8, 1.0, 1.2, 1.5]
+  - name: "opacity"
+    type: "array"
+    values: [0.3, 0.5, 0.7, 0.9, 1.0]
+  - name: "fpx"
+    type: "array"
+    values: [0.0, 0.25, 0.5, 0.75, 1.0]
+  - name: "fpy"
+    type: "array"
+    values: [0.0, 0.25, 0.5, 0.75, 1.0]
+k6Options:
+  thresholds:
+    http_req_duration: ["p(95)<2000"]
+    http_req_failed: ["rate<0.1"]

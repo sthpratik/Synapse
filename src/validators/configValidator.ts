@@ -79,6 +79,14 @@ export class ConfigValidator {
       output: Joi.object({
         format: Joi.string().valid('json', 'influxdb', 'cloud').optional(),
         file: Joi.string().optional()
+      }).optional(),
+      comparison: Joi.object({
+        enabled: Joi.boolean().required(),
+        type: Joi.string().valid('image', 'text').optional().default('image'),
+        baseUrl2: Joi.string().uri().when('enabled', { is: true, then: Joi.required() }),
+        threshold: Joi.number().min(0).max(1).optional().default(0.1),
+        timeout: Joi.number().positive().optional().default(30000),
+        reportFormat: Joi.string().valid('csv', 'json').optional().default('csv')
       }).optional()
     });
   }
@@ -124,6 +132,17 @@ export class ConfigValidator {
     // Validate execution settings
     if (!config.execution.iterations && !config.execution.duration) {
       throw new Error('Either iterations or duration must be specified');
+    }
+
+    // Validate comparison configuration
+    if (config.comparison?.enabled) {
+      if (!config.comparison.baseUrl2) {
+        throw new Error('Comparison mode requires baseUrl2 to be specified');
+      }
+      
+      if (config.comparison.threshold !== undefined && (config.comparison.threshold < 0 || config.comparison.threshold > 1)) {
+        throw new Error('Comparison threshold must be between 0 and 1');
+      }
     }
   }
 }

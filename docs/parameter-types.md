@@ -101,6 +101,57 @@ Selects random values from a predefined list for categories, statuses, or fixed 
 - Rotating through API endpoints
 - Simulating user roles or permissions
 
+## Static Parameters
+
+Uses fixed values with smart auto-encoding for URLs and special characters. Perfect for API keys, fixed endpoints, or consistent test data.
+
+```yaml
+- name: "apiKey"
+  type: "static"
+  value: "your-api-key-here"
+
+- name: "imageUrl"
+  type: "static"
+  value: "http://localhost:7900/generated-content/imagen.webp"
+
+- name: "searchQuery"
+  type: "static"
+  value: "hello world & special chars!"
+```
+
+**Auto-Encoding Behavior:**
+- URLs are automatically URL-encoded when needed
+- Special characters (`&`, `!`, spaces, etc.) are encoded
+- Simple strings (like API keys) remain unchanged
+- No configuration required
+
+**Examples:**
+```yaml
+# API key (no encoding needed)
+- name: "apiKey"
+  type: "static"
+  value: "sk-1234567890abcdef"
+# Result: sk-1234567890abcdef
+
+# Complex URL (auto-encoded)
+- name: "imageUrl"
+  type: "static"
+  value: "http://localhost:3000/api/test?param=value&other=data"
+# Result: http%3A//localhost%3A3000/api/test%3Fparam%3Dvalue%26other%3Ddata
+
+# Search query with special chars (auto-encoded)
+- name: "query"
+  type: "static"
+  value: "cats & dogs"
+# Result: cats%20%26%20dogs
+```
+
+**Use Cases:**
+- Fixed API keys or tokens
+- Consistent test image URLs
+- Standard search queries
+- Configuration values
+
 ## CSV Parameters
 
 Loads values from CSV files for realistic data sets like user lists, search terms, or locations.

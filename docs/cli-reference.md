@@ -67,17 +67,25 @@ synapse run [options]
 - `-o, --output <path>` - Output directory (default: ./output)
 - `--dry-run` - Generate script without running
 - `--keep-script` - Keep generated K6 script after execution
+- `--compare` - Run comparison if enabled in config (opt-in)
+- `--compare-only` - Generate URLs and run comparison only (skip load test)
 
 **Examples:**
 ```bash
-# Run with default config
+# Run with default config (load test only)
 synapse run
 
-# Run with custom config
-synapse run -c my-test.yml
+# Run with comparison enabled
+synapse run --compare
+
+# Run only comparison (no load test)
+synapse run --compare-only
 
 # Dry run to see generated script
 synapse run --dry-run
+
+# Dry run with comparison
+synapse run --compare --dry-run
 
 # Keep generated script
 synapse run --keep-script
@@ -114,6 +122,45 @@ synapse generate [options]
 **Example:**
 ```bash
 synapse generate -c my-test.yml -o my-test.js
+```
+
+### `synapse compare`
+
+Compare images or text content from CSV file.
+
+```bash
+synapse compare [options]
+```
+
+**Options:**
+- `-f, --file <path>` - CSV file with URLs to compare (required)
+- `-c1, --column1 <name>` - First URL column name (default: url1)
+- `-c2, --column2 <name>` - Second URL column name (default: url2)
+- `-t, --type <type>` - Comparison type: image or text (default: image)
+- `-o, --output <path>` - Output directory (default: ./output)
+- `--timeout <ms>` - Request timeout in milliseconds (default: 30000)
+- `--threshold <value>` - Image comparison threshold 0-1 (default: 0.1)
+
+**Examples:**
+```bash
+# Basic image comparison
+synapse compare --file urls.csv --type image
+
+# Text comparison with custom columns
+synapse compare -f endpoints.csv -t text -c1 v1_url -c2 v2_url
+
+# Strict image comparison with custom threshold
+synapse compare --file images.csv --type image --threshold 0.05
+
+# With custom timeout and output directory
+synapse compare -f urls.csv --timeout 60000 -o ./comparison-results
+```
+
+**CSV Format:**
+```csv
+url1,url2
+https://v1.api.com/image/1,https://v2.api.com/image/1
+https://v1.api.com/image/2,https://v2.api.com/image/2
 ```
 
 ## Global Options

@@ -8,6 +8,16 @@ export interface SynapseConfig {
   batch?: BatchConfig;
   request?: RequestConfig;
   output?: OutputConfig;
+  comparison?: ComparisonConfig;
+}
+
+export interface ComparisonConfig {
+  enabled: boolean;
+  type: 'image' | 'text';
+  baseUrl2: string;
+  timeout?: number;
+  threshold?: number;
+  reportFormat?: 'csv' | 'json';
 }
 
 export interface ExecutionConfig {

@@ -6,6 +6,7 @@ import * as path from 'path';
 import chalk from 'chalk';
 import { SynapseRunner } from './runner';
 import { ConfigValidator } from './validators/configValidator';
+import { compareCommand } from './commands/compare.js';
 
 const program = new Command();
 
@@ -21,6 +22,8 @@ program
   .option('-o, --output <path>', 'Output directory for generated files', './output')
   .option('--dry-run', 'Generate K6 script without running the test')
   .option('--keep-script', 'Keep generated K6 script after test completion')
+  .option('--compare', 'Run comparison if enabled in config')
+  .option('--compare-only', 'Run only comparison (skip load test)')
   .action(async (options) => {
     try {
       console.log(chalk.blue('🔄 Starting Synapse Load Test...'));
@@ -35,7 +38,9 @@ program
       await runner.run(configPath, {
         outputDir: options.output,
         dryRun: options.dryRun,
-        keepScript: options.keepScript
+        keepScript: options.keepScript,
+        enableComparison: options.compare,
+        comparisonOnly: options.compareOnly
       });
 
     } catch (error) {
@@ -151,5 +156,8 @@ program
       process.exit(1);
     }
   });
+
+// Add compare command
+program.addCommand(compareCommand);
 
 program.parse();

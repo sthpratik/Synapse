@@ -171,6 +171,11 @@ ${this.config.parameters.map(param =>
 
     const urlFunction = this.config.execution.mode === 'batch' ? 'getRandomUrl()' : 'constructUrl()';
 
+    // Generate comparison logic if enabled
+    if (this.config.comparison?.enabled) {
+      return this.generateComparisonFunction(urlFunction, method, requestOptions);
+    }
+
     return `
 export default function() {
   const url = ${urlFunction};
@@ -184,6 +189,77 @@ export default function() {
   
   sleep(1);
 }`;
+  }
+
+  private generateComparisonFunction(urlFunction: string, method: string, requestOptions: string): string {
+    const comparison = this.config.comparison!;
+    
+    return `
+import { SharedArray } from 'k6/data';
+
+// Shared array to collect comparison results
+const comparisonData = new SharedArray('comparison-results', function () {
+  return [];
+});
+
+export default function() {
+  const url1 = ${urlFunction};
+  const url2 = url1.replace('${this.config.baseUrl}', '${comparison.baseUrl2}');
+  
+  const startTime = Date.now();
+  
+  // Make both requests
+  const response1 = http.${method.toLowerCase()}(url1${requestOptions});
+  const response2 = http.${method.toLowerCase()}(url2${requestOptions});
+  
+  const responseTime = Date.now() - startTime;
+  
+  // Basic checks
+  check(response1, {
+    'url1 status is 200': (r) => r.status === 200,
+  });
+  
+  check(response2, {
+    'url2 status is 200': (r) => r.status === 200,
+  });
+  
+  // Log comparison data (K6 will capture this)
+  console.log(JSON.stringify({
+    type: 'comparison',
+    iteration: __ITER,
+    url1: url1,
+    url2: url2,
+    responseTime: responseTime,
+    url1Status: response1.status,
+    url2Status: response2.status,
+    url1Size: response1.body ? response1.body.length : 0,
+    url2Size: response2.body ? response2.body.length : 0,
+    sizeMatch: response1.status === 200 && response2.status === 200 ? response1.body.length === response2.body.length : false,
+    similarity: response1.status === 200 && response2.status === 200 ? (response1.body.length === response2.body.length ? 100 : 0) : 0,
+    timestamp: new Date().toISOString()
+  }));
+  
+  sleep(1);
+}`;
+  }
+
+  private generateTextComparison(): string {
+    return `
+  // Text comparison
+  if (response1.status === 200 && response2.status === 200) {
+    result.textMatch = response1.body === response2.body;
+    result.similarity = result.textMatch ? 100 : 0;
+  }`;
+  }
+
+  private generateImageComparison(): string {
+    return `
+  // Image comparison (basic size comparison in K6)
+  if (response1.status === 200 && response2.status === 200) {
+    result.sizeMatch = response1.body.length === response2.body.length;
+    // Note: Detailed image comparison requires post-processing
+    result.similarity = result.sizeMatch ? 100 : 0;
+  }`;
   }
 
   private async loadUrlsFromCsv(filePath: string, column: string): Promise<string[]> {

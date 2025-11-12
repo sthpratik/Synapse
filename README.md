@@ -15,6 +15,8 @@ Synapse is a powerful command-line tool that generates K6 load testing scripts f
 - **Performance Metrics** - Comprehensive load testing results
 - **CLI Interface** - Easy-to-use command-line interface
 - **MCP Integration** - Natural language load testing through LLM conversations
+- **🆕 Image/Text Comparison** - Compare responses between different versions/environments
+- **🆕 Standalone Comparison** - Direct CSV-based image/text comparison tool
 
 ## 📦 Installation
 
@@ -222,6 +224,65 @@ simple-endpoint
 # Simple strings → Unchanged
 ```
 
+## 🔄 Comparison Features
+
+### Load Test with Comparison
+Compare different versions/environments during load testing:
+
+```yaml
+name: "Version Comparison Test"
+baseUrl: "https://v1.api.example.com"
+execution:
+  mode: "construct"
+  concurrent: 10
+  iterations: 100
+parameters:
+  - name: "userId"
+    type: "integer"
+    min: 1000
+    max: 9999
+comparison:
+  enabled: true
+  type: "image"  # or "text"
+  baseUrl2: "https://v2.api.example.com"
+  threshold: 0.1
+  timeout: 30000
+```
+
+**Usage:**
+```bash
+# Load test only (default)
+synapse run
+
+# Load test + comparison
+synapse run --compare
+
+# Comparison only (no load test)
+synapse run --compare-only
+```
+
+### Standalone Comparison
+Compare images/text directly from CSV:
+
+```csv
+url1,url2
+https://v1.api.com/image/1,https://v2.api.com/image/1
+https://v1.api.com/image/2,https://v2.api.com/image/2
+```
+
+```bash
+synapse compare --file comparison.csv --type image
+```
+
+### Comparison Reports
+Generated reports include:
+- Response times for both URLs
+- HTTP status codes
+- Image dimensions and similarity scores
+- Text match results
+- Error details and timestamps
+- CSV and JSON formats
+
 ## 🔧 CLI Commands
 
 ### `synapse test`
@@ -251,6 +312,8 @@ Options:
 - `-o, --output <path>` - Output directory (default: ./output)
 - `--dry-run` - Generate script without running
 - `--keep-script` - Keep generated K6 script
+- `--compare` - Run comparison if enabled in config (opt-in)
+- `--compare-only` - Generate URLs and run comparison only (skip load test)
 
 ### `synapse validate`
 Validate configuration file:
@@ -272,6 +335,22 @@ Initialize new configuration:
 ```bash
 synapse init --name "My Test" --url "https://api.example.com"
 ```
+
+### `synapse compare`
+Compare images or text from CSV file:
+
+```bash
+synapse compare --file urls.csv --type image --column1 url1 --column2 url2
+```
+
+Options:
+- `-f, --file <path>` - CSV file with URLs to compare (required)
+- `-c1, --column1 <name>` - First URL column name (default: url1)
+- `-c2, --column2 <name>` - Second URL column name (default: url2)
+- `-t, --type <type>` - Comparison type: image or text (default: image)
+- `-o, --output <path>` - Output directory (default: ./output)
+- `--timeout <ms>` - Request timeout in milliseconds (default: 30000)
+- `--threshold <value>` - Image comparison threshold 0-1 (default: 0.1)
 
 ## 📊 Execution Modes
 

@@ -4,6 +4,8 @@
 * [Configuration Schema](config-schema.md)
 * [Parameter Types](parameter-types.md)
 * [K6 Options](k6-options.md)
+* [Comparison](comparison.md)
+* [Output Files](output-files.md)
 * [Examples](examples.md)
 * [MCP Integration](mcp-integration.md)
 * [Architecture](architecture.md)

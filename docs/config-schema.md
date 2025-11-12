@@ -73,7 +73,37 @@ request:
     {
       "data": "test"
     }
+
+# Comparison configuration (optional)
+comparison:
+  enabled: true
+  type: "image"  # or "text"
+  baseUrl2: "https://v2.api.example.com"
+  threshold: 0.1
+  timeout: 30000
+  reportFormat: "csv"  # or "json"
 ```
+
+## Comparison Configuration
+
+### Image/Text Comparison
+```yaml
+comparison:
+  enabled: true
+  type: "image"                    # "image" or "text"
+  baseUrl2: "https://v2.api.example.com"  # Second URL to compare
+  threshold: 0.1                   # Image similarity threshold (0-1)
+  timeout: 30000                   # Request timeout in milliseconds
+  reportFormat: "csv"              # Report format: "csv" or "json"
+```
+
+**Comparison Fields:**
+- `enabled`: Enable comparison mode (boolean, required)
+- `type`: Comparison type - "image" or "text" (string, default: "image")
+- `baseUrl2`: Second base URL for comparison (string, required)
+- `threshold`: Image comparison threshold 0-1, lower = stricter (number, default: 0.1)
+- `timeout`: Request timeout in milliseconds (number, default: 30000)
+- `reportFormat`: Output format for reports (string, default: "csv")
 
 ## Parameter Types
 
@@ -119,6 +149,17 @@ request:
   file: "./data/urls.csv"
   column: "url"
   encoding: "base64" # optional encoding
+```
+
+### Static Parameters
+```yaml
+- name: "apiKey"
+  type: "static"
+  value: "your-api-key-here"
+
+- name: "imageUrl"
+  type: "static"
+  value: "http://localhost:7900/generated-content/imagen.webp"
 ```
 
 ## Example Configurations
