@@ -20,6 +20,10 @@ Synapse is a powerful command-line tool that generates K6 load testing scripts f
 
 ## 📦 Installation
 
+### Prerequisite - K6 Installation Guide
+  Synapse requires K6 to be installed on your system to run load tests. 
+  Here's how to install K6 on different platforms: [Docs](https://sthpratik.github.io/synapse/#/k6-installation).
+
 ### Global Installation (Recommended)
 
 ```bash
